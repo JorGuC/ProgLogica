@@ -1,0 +1,31 @@
+import Copilot.Arduino 
+
+ 
+
+-- Definimos una señal que alterna entre True (encendido) y False (apagado) cada 5 segundos 
+
+flashing :: Stream Bool 
+
+flashing = every (fromSeconds 5) true 
+
+ 
+
+-- Programa principal 
+
+main :: IO () 
+
+main = arduino $ do 
+
+  let ledPin = 13  -- Número del pin donde está conectado el LED (en Arduino Uno, el LED está conectado al pin 13) 
+
+ 
+
+  -- Configuramos el pin LED como salida digital 
+
+  pin "led" $ outputPin ledPin 
+
+ 
+
+  -- Encendemos el LED utilizando la señal "flashing" 
+
+  digitalOutput "led" =: flashing 
